@@ -1,7 +1,7 @@
 import React from "react";
 import { Client } from "boardgame.io/react";
 import { Local } from "boardgame.io/multiplayer";
-import { DivorceGame } from "./Game";
+import { DivorceGame } from "../game";
 import { DivorceGameBoard } from "./Board";
 
 const DivorceGameClient = Client({
