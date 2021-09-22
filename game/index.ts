@@ -1,7 +1,11 @@
 import { playCard, flipCard, bidMoney, bidCards, passMoney } from "./moves";
 import { Game } from "boardgame.io";
 import { DivorceGameState, AllPlayersState, GoalCard } from "../types";
-import { generateCards, generateGoals } from "./gameData";
+import {
+  generateCards,
+  generateGoals,
+  generateInitialAuctionState,
+} from "./gameData";
 
 export const DivorceGame: Game<DivorceGameState> = {
   name: "divorce-game",
@@ -32,12 +36,9 @@ export const DivorceGame: Game<DivorceGameState> = {
 
     return {
       players,
+      deck: itemCards,
       publicGoals: [goalCards.colors.pop(), goalCards.categories.pop()],
-      auction: {
-        card: null,
-        currentBid: 0,
-        highestBidder: null,
-      },
+      auction: generateInitialAuctionState(),
     };
   },
 
@@ -45,7 +46,21 @@ export const DivorceGame: Game<DivorceGameState> = {
     mediation: {
       moves: {
         playCard,
-        //drawCard
+      },
+
+      turn: {
+        onEnd: (G, ctx) => {
+          G.auction = generateInitialAuctionState();
+          G.players[ctx.currentPlayer].hand.push(G.deck.pop());
+        },
+        stages: {
+          bidMoneyStage: {
+            moves: {
+              bidMoney,
+              passMoney,
+            },
+          },
+        },
       },
 
       next: "arbitration",
@@ -62,12 +77,6 @@ export const DivorceGame: Game<DivorceGameState> = {
 
   turn: {
     stages: {
-      bidMoneyStage: {
-        moves: {
-          bidMoney,
-          passMoney,
-        },
-      },
       bidCardStage: {
         moves: {
           bidCards,

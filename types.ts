@@ -25,12 +25,14 @@ export interface AllPlayersState {
 }
 
 export interface AuctionState {
-  card: string | null;
+  card: ItemCard | null;
   highestBidder: string | null;
   currentBid: number;
+  passedPlayers: string[];
 }
 
 export interface DivorceGameState {
   players: AllPlayersState;
   auction: AuctionState;
+  deck: ItemCard[];
 }

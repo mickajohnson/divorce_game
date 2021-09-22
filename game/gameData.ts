@@ -127,3 +127,7 @@ export function generateGoals(): {
   ];
   return { colors: shuffle(colors), categories: shuffle(categories) };
 }
+
+export function generateInitialAuctionState() {
+  return { card: null, currentBid: 0, highestBidder: null, passedPlayers: [] };
+}
