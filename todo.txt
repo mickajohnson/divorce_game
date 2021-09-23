@@ -1,3 +1,2 @@
-- Fix all ts warnings
 - add remaining normal cards
 

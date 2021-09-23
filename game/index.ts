@@ -1,26 +1,24 @@
 import { playCard, flipCard, bidMoney, bidCards, passMoney } from "./moves";
 import { Game } from "boardgame.io";
-import { DivorceGameState, AllPlayersState, GoalCard } from "../types";
+import { DivorceGameState, AllPlayersState } from "../types";
 import {
   generateCards,
   generateGoals,
   generateInitialAuctionState,
 } from "./gameData";
+import { ARBITRATION, BID_MONEY_STAGE } from "../constants";
 
 export const DivorceGame: Game<DivorceGameState> = {
   name: "divorce-game",
 
-  // Function that returns the initial value of G.
-  // setupData is an optional custom object that is
-  // passed through the Game Creation API.
-  setup(ctx, setupData) {
+  setup(ctx, setupData): DivorceGameState {
     const itemCards = generateCards();
     const goalCards = generateGoals();
 
     const players = ctx.playOrder.reduce(
       (playerObject: AllPlayersState, playerKey: string) => {
         const hand = itemCards.splice(0, 4);
-        const goals = [goalCards.colors.pop(), goalCards.categories.pop()];
+        const goals = [goalCards.colors.pop()!, goalCards.categories.pop()!];
 
         playerObject[playerKey] = {
           hand,
@@ -37,7 +35,7 @@ export const DivorceGame: Game<DivorceGameState> = {
     return {
       players,
       deck: itemCards,
-      publicGoals: [goalCards.colors.pop(), goalCards.categories.pop()],
+      publicGoals: [goalCards.colors.pop()!, goalCards.categories.pop()!],
       auction: generateInitialAuctionState(),
     };
   },
@@ -51,10 +49,17 @@ export const DivorceGame: Game<DivorceGameState> = {
       turn: {
         onEnd: (G, ctx) => {
           G.auction = generateInitialAuctionState();
-          G.players[ctx.currentPlayer].hand.push(G.deck.pop());
+
+          const newCard = G.deck.pop()!;
+
+          if (newCard.id === ARBITRATION) {
+            ctx.events?.endPhase();
+          } else {
+            G.players[ctx.currentPlayer].hand.push(newCard);
+          }
         },
         stages: {
-          bidMoneyStage: {
+          [BID_MONEY_STAGE]: {
             moves: {
               bidMoney,
               passMoney,
