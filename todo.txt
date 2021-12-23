@@ -1,2 +1,15 @@
 - add remaining normal cards
+- rough visualization for round one
+- add round two mechanics
+- add round two cards - just four for now. 
+- rough visualization for round two
+- ai
 
+
+
+
+Computer ideas
+- Different play styles: One has max amount they'll spend, one is conservative, one liberal, one (maybe all) a bit chaotic
+- Some will try to drive prices high if they think you want it
+- If you buy certain things at high price, that'll put weight in that column. Low price reduces weight. But both do so unreliably.
+- Idea is that it has a sense of what you might want.

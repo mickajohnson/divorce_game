@@ -58,7 +58,7 @@ export const passMoney: Move<DivorceGameState> = (G, ctx) => {
   G.auction.passedPlayers.push(playerId);
 
   if (G.auction.passedPlayers.length === 2) {
-    G.players[ctx.currentPlayer].collection.push(card!);
+    G.roundTwoRiver.push(card!);
     ctx.events?.endTurn();
   } else if (G.auction.passedPlayers.length === 1 && highestBidder) {
     G.players[highestBidder].money -= currentBid;

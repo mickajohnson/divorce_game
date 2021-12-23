@@ -6,7 +6,9 @@ import {
   generateGoals,
   generateInitialAuctionState,
 } from "./gameData";
-import { ARBITRATION, BID_MONEY_STAGE } from "../constants";
+import { MEDIATION, BID_MONEY_STAGE } from "../constants";
+
+const NUM_CARDS_IN_HAND = 6;
 
 export const DivorceGame: Game<DivorceGameState> = {
   name: "divorce-game",
@@ -17,7 +19,7 @@ export const DivorceGame: Game<DivorceGameState> = {
 
     const players = ctx.playOrder.reduce(
       (playerObject: AllPlayersState, playerKey: string) => {
-        const hand = itemCards.splice(0, 4);
+        const hand = itemCards.splice(0, NUM_CARDS_IN_HAND);
         const goals = [goalCards.colors.pop()!, goalCards.categories.pop()!];
 
         playerObject[playerKey] = {
@@ -37,11 +39,12 @@ export const DivorceGame: Game<DivorceGameState> = {
       deck: itemCards,
       publicGoals: [goalCards.colors.pop()!, goalCards.categories.pop()!],
       auction: generateInitialAuctionState(),
+      roundTwoRiver: [],
     };
   },
 
   phases: {
-    mediation: {
+    negotiation: {
       moves: {
         playCard,
       },
@@ -52,7 +55,7 @@ export const DivorceGame: Game<DivorceGameState> = {
 
           const newCard = G.deck.pop()!;
 
-          if (newCard.id === ARBITRATION) {
+          if (newCard.id === MEDIATION) {
             ctx.events?.endPhase();
           } else {
             G.players[ctx.currentPlayer].hand.push(newCard);
@@ -68,14 +71,14 @@ export const DivorceGame: Game<DivorceGameState> = {
         },
       },
 
-      next: "arbitration",
+      next: "mediation",
       start: true,
       onEnd: () => {
         // thow away money, shuffle hands into deck
       },
     },
 
-    arbitration: {
+    mediation: {
       moves: { flipCard },
     },
   },

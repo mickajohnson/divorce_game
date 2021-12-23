@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Divorce: The Card Game</title>
+        <title>What&apos;s Ours Is Mine</title>
         <meta name="description" content="Kramer vs. Kramer meets Poker" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

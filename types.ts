@@ -1,7 +1,7 @@
 // make color and category enum
 export interface ItemCard {
-  color: string | null;
-  category: string | null;
+  color: string;
+  category: string;
   name: string;
   id: string;
   special: boolean;
@@ -37,4 +37,5 @@ export interface DivorceGameState {
   auction: AuctionState;
   deck: ItemCard[];
   publicGoals: GoalCard[];
+  roundTwoRiver: ItemCard[];
 }

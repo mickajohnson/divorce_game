@@ -1,6 +1,6 @@
 import random from "lodash/random";
 import shuffle from "lodash/shuffle";
-import { ARBITRATION } from "../constants";
+import { MEDIATION } from "../constants";
 
 import { GoalCard, ItemCard } from "../types";
 
@@ -76,18 +76,123 @@ export function generateCards(): ItemCard[] {
       name: "black washer",
       id: "black_washer",
     },
+    {
+      special: false,
+      color: "green",
+      category: "entertainment",
+      name: "green tv",
+      id: "green_tv",
+    },
+    {
+      special: false,
+      color: "purple",
+      category: "entertainment",
+      name: "purple tv",
+      id: "purple_tv",
+    },
+    {
+      special: false,
+      color: "orange",
+      category: "entertainment",
+      name: "orange tv",
+      id: "orange_tv",
+    },
+    {
+      special: false,
+      color: "brown",
+      category: "entertainment",
+      name: "brown tv",
+      id: "brown_tv",
+    },
+    {
+      special: false,
+      color: "black",
+      category: "entertainment",
+      name: "black tv",
+      id: "black_tv",
+    },
+    {
+      special: false,
+      color: "green",
+      category: "decor",
+      name: "green vase",
+      id: "green_vase",
+    },
+    {
+      special: false,
+      color: "purple",
+      category: "decor",
+      name: "purple vase",
+      id: "purple_vase",
+    },
+    {
+      special: false,
+      color: "orange",
+      category: "decor",
+      name: "orange vase",
+      id: "orange_vase",
+    },
+    {
+      special: false,
+      color: "brown",
+      category: "decor",
+      name: "brown vase",
+      id: "brown_vase",
+    },
+    {
+      special: false,
+      color: "black",
+      category: "decor",
+      name: "black vase",
+      id: "black_vase",
+    },
+    {
+      special: false,
+      color: "green",
+      category: "tools",
+      name: "green hammer",
+      id: "green_hammer",
+    },
+    {
+      special: false,
+      color: "purple",
+      category: "tools",
+      name: "purple hammer",
+      id: "purple_hammer",
+    },
+    {
+      special: false,
+      color: "orange",
+      category: "tools",
+      name: "orange hammer",
+      id: "orange_hammer",
+    },
+    {
+      special: false,
+      color: "brown",
+      category: "tools",
+      name: "brown hammer",
+      id: "brown_hammer",
+    },
+    {
+      special: false,
+      color: "black",
+      category: "tools",
+      name: "black hammer",
+      id: "black_hammer",
+    },
   ];
 
-  const arbitrationCard = {
+  const mediationCard = {
     special: false,
-    color: null,
-    category: null,
-    name: "Arbitration",
-    id: ARBITRATION,
+    color: "mediation",
+    category: "mediation",
+    name: "Mediation",
+    id: MEDIATION,
   };
 
   const insertPoint = random(deck.length - 4, deck.length);
-  deck.splice(insertPoint, 0, arbitrationCard);
+  deck.splice(insertPoint, 0, mediationCard);
 
   return deck;
 }
