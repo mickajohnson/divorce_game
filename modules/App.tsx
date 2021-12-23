@@ -7,13 +7,13 @@ import { DivorceGameBoard } from "./Board";
 const DivorceGameClient = Client({
   game: DivorceGame,
   board: DivorceGameBoard,
-  multiplayer: Local(),
+  // multiplayer: Local(),
 });
 
 const App = () => (
   <div>
     <DivorceGameClient playerID="0" />
-    <DivorceGameClient playerID="1" />
+    {/* <DivorceGameClient playerID="1" /> */}
   </div>
 );
 

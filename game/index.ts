@@ -6,6 +6,7 @@ import {
   generateGoals,
   generateInitialAuctionState,
 } from "./gameData";
+import ai from "./ai";
 import { MEDIATION, BID_MONEY_STAGE } from "../constants";
 
 const NUM_CARDS_IN_HAND = 6;
@@ -82,7 +83,7 @@ export const DivorceGame: Game<DivorceGameState> = {
       moves: { flipCard },
     },
   },
-
+  ai,
   turn: {
     stages: {
       bidCardStage: {
@@ -91,5 +92,36 @@ export const DivorceGame: Game<DivorceGameState> = {
         },
       },
     },
+  },
+  endIf: (G, ctx) => {
+    if (ctx.phase === MEDIATION) {
+      const winner;
+      const points = {
+        0: 0,
+        1: 0,
+      };
+
+      const privateGoals = [...G.players[0].goals, ...G.players[1].goals];
+      privateGoals.forEach((goal) => {
+        G.players.forEach((player) => {
+          player.hand.forEach((card) => {
+            if (card[goal.type] === goal.id) {
+              points[player.id] += 1;
+            }
+          });
+        });
+        goal.type;
+      });
+
+      return {
+        winner,
+      };
+    }
+    // if (IsVictory(G.cells)) {
+    //   return { winner: ctx.currentPlayer };
+    // }
+    // if (IsDraw(G.cells)) {
+    //   return { draw: true };
+    // }
   },
 };
