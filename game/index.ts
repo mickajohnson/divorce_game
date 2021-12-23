@@ -95,7 +95,7 @@ export const DivorceGame: Game<DivorceGameState> = {
   },
   endIf: (G, ctx) => {
     if (ctx.phase === MEDIATION) {
-      const winner;
+      let winner: number;
       const points = {
         0: 0,
         1: 0,
@@ -112,6 +112,12 @@ export const DivorceGame: Game<DivorceGameState> = {
         });
         goal.type;
       });
+
+      if (points[0] > points[1]) {
+        winner = 0;
+      } else {
+        winner = 1;
+      }
 
       return {
         winner,
